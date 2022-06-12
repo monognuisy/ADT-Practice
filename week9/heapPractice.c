@@ -18,7 +18,7 @@ void initHeap(Heap* h) {
 void printHeap(Heap* h) {
   int lineLength = 2;
 
-  for (int i = 0; i <= h->lastIndex; i++) {
+  for (int i = 1; i <= h->lastIndex; i++) {
     printf("%d\t", h->nodes[i]);
     if (i == lineLength - 1) {
       printf("\n");
@@ -53,7 +53,8 @@ void deleteHeap(Heap* h) {
                      ? childIndex
                      : (childIndex + 1);
 
-    if (temp >= h->nodes[childIndex]) break;
+    if (temp >= h->nodes[childIndex])
+      break;
 
     h->nodes[parentIndex] = h->nodes[childIndex];
     parentIndex = childIndex;
@@ -61,6 +62,8 @@ void deleteHeap(Heap* h) {
   }
 
   h->nodes[parentIndex] = temp;
+
+  h->lastIndex--;
 }
 
 void insertHeap(Heap* h, int data) {
@@ -84,4 +87,22 @@ void insertHeap(Heap* h, int data) {
 int main() {
   Heap h;
   initHeap(&h);
+
+  insertHeap(&h, 10);
+  insertHeap(&h, 9);
+  insertHeap(&h, 2);
+  insertHeap(&h, 5);
+  insertHeap(&h, 3);
+  insertHeap(&h, 8);
+  insertHeap(&h, 7);
+
+  printHeap(&h);
+
+  deleteHeap(&h);
+
+  printHeap(&h);
+
+  deleteHeap(&h);
+
+  printHeap(&h);
 }
